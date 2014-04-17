@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>Musikschüleranteil in Aachen</title>
+    <title>Radarkontrollen in Aachen</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <meta name="author" content="Stephan Schielke">
     <meta charset="utf-8">
@@ -252,12 +252,8 @@
             $.when( 
                 getNominatimMarker(messung)
             ).done( function () {
-                messung.GeoJson.blitzgefahr = messung.Blitzgefahr;
-                console.log("GEOJSON: " + messung.GeoJson.blitzgefahr); 
                 var features = geojson_format.read(messung.GeoJson, "FeatureCollection");
-
                 var feature = new OpenLayers.Feature.Vector(features[0].geometry, { blitzgefahr: messung.Blitzgefahr });      
- 
                 layerStrassen.addFeatures([feature]);
             });
         });
@@ -297,7 +293,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rohdaten<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="http://digitales-aachen.de/index.php?topic=56.15">Dezember 2013 Datei</a>
+                            <li><a href="./csv/2013_12.csv">Dezember 2013 Datei (CVS)</a>
                             </li>
                         </ul>
                     </li>
@@ -326,7 +322,7 @@
                 Beschreibung
             </h2>
             <p class="lead">
-                Zu sehen ist eine Karte der Stadt Aachen mit eingezeichneten Standorten der Radarkontrollen von Dezember 2013. Es wurde ein "Blitzgefahr"-Wert aus den Rohdaten ermittelt, der die gesamte Messung und die Überschreitungen der Geschwindigkeitsbegrenzung miteinbezieht. Je rötlicher eine Straßenstrecke am Messpunkt, desto höher der Anteil an Autos die zu schnell fahren. Je gelblicher, desto geringer die Anzahl der Überschreitungen. Bewegt man die Maus über eine Radarmessstelle werden Zusatzinformationen angezeigt. Die Rohdaten wurden öffentlich hinterlegt und sind über das Menü einsehbar.
+                Zu sehen ist eine Karte der Stadt Aachen mit eingezeichneten Standorten der Radarkontrollen von Dezember 2013. Es wurde ein "Blitzgefahr"-Wert aus den Rohdaten ermittelt, der die Gesamtanzahl an Messungen und die Überschreitungen der Geschwindigkeitsbegrenzung miteinbezieht. Je rötlicher eine Straßenstrecke am Messpunkt, desto höher der Anteil an Autos die zu schnell fahren. Je gelblicher, desto geringer die Anzahl der Überschreitungen. Bewegt man die Maus über eine Radarmessstelle werden Zusatzinformationen angezeigt. Die Rohdaten wurden öffentlich hinterlegt und sind über das Menü einsehbar.
             </p>
         </div>
 
@@ -336,7 +332,7 @@
             </h2>
             <p>
                 Die Kontrollen finden gleichverteilt statt.
-                <br>Das Gebiet um Forst herum wird kaum kontrolliert.
+                <br>Die Gebiete um Forst und Aachen West herum werden kaum kontrolliert.
                 <br>Es gibt eine starke Durchmischung vom "Blitzgefahrengrad"
             </p>
         </div>
