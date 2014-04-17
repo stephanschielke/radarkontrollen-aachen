@@ -1,0 +1,71 @@
+﻿Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+01.03.14,Albert-Einstein-Str.,Aachener Str.,180,21,7
+02.03.14,Adalbertsteinweg,Trierer Str.,819,32,6
+04.03.14,Roermonder Str.,Laurensberg,519,17,2
+ ,Trierer Str.,Innenstadt,1249,23,2
+05.03.14,Purweider Weg,Merowingerstr.,378,56,22
+ ,Aachener Str.,Walheim,237,7,-
+ ,Albert-Einstein-Str.,Aachener Str.,215,18,1
+06.03.14,Limburger Str.,Hohenstaufenallee,180,25,5
+ ,Münsterstr.,Oberforstbacher Str.,62,14,3
+ ,Hohenstaufenallee,Lütticher Str.,293,16,1
+ ,Muffeter Weg,Maastrichter Str.,91,3,-
+07.03.14,Vaalser Str.,Innenstadt,410,7,1
+ ,Monschauer Str.,Eifel,575,14,1
+ ,Maria-Theresia-Allee,Luxemburger Ring,126,21,3
+08.03.14,Albert-Einstein-Str.,Aachener Str.,333,58,3
+ ,Vaalser Str.,Innenstadt,1123,68,4
+09.03.14,Krefelder Str.,Würselen,353,60,1
+10.03.14,Nirmer Str.,Kalkbergstr.,156,10,2
+ ,Melatener Str.,Turmstr.,43,5,-
+ ,Forster Weg,Erzbergerallee,77,22,-
+ ,Rombachstr.,Schulzentrum Brand,153,16,2
+11.03.14,Karl-Marx-Allee,Adenauerallee,231,21,5
+ ,Berensberger Str.,Roermonder Str.,143,17,3
+ ,Albert-Einstein-Str.,Aachener Str.,133,2,-
+ ,Jülicher Str.,Innenstadt,495,28,-
+12.03.14,Albert-Einstein-Str.,Aachener Str.,211,21,5
+ ,Sittarder Str.,Königsberger Str.,68,17,1
+ ,Kronenberg,Amsterdamer  Ring,93,13,-
+ ,Forster Weg,Erzbergerallee,132,25,1
+13.03.14,Passstr.,Jülicher Str.,353,40,6
+ ,Vetschauer Weg,Horbacher Str.,65,10,1
+ ,Von-Coels-Str.,Stolberg,462,14,-
+ ,Hofenbornstr.,Hüls,102,12,3
+14.03.14,Krefelder Str.,Würselen,549,35,1
+ ,Freunder Landstr.,Stolberg,201,7,-
+ ,Horbacher Str.,Horbach,94,9,1
+15.03.14,Ludwigsallee,Ponttor,529,14,-
+ ,Roermonder Str.,Richterich,1032,3,-
+16.03.14,Lütticher Str.,Kelmis,570,26,1
+ ,Monschauer Str.,Innenstadt,320,13,-
+17.03.14,Hohenstaufenallee,Lütticher Str.,236,5,-
+ ,Forster Weg,Karl-Marx-Allee,158,45,-
+ ,Josefstr.,Von-Coels-Str.,187,21,-
+18.03.14,Purweider Weg,Merowingerstr.,288,29,-
+ ,Von-Coels-Str.,Freunder Str.,624,15,-
+ ,Monschauer Str.,Eifel,921,22,2
+ ,Albert-Einstein-Str.,Aachener Str., , , 
+19.03.14,Passstr.,Jülicher Str.,216,35,2
+ ,Maria-Theresia-Allee,Luxemburger Ring,214,29,-
+ ,Würselener Str.,Würselen,92,14,1
+ ,Himmelsleiter B258,Roetgen,843,4,-
+20.03.14,Bleiberger Str.,Vaalser Str.,170,24,4
+ ,Eupener Str.,Belgien,294,57,3
+21.03.14,Peliserkerstr.,Jülicher Str.,503,32,-
+ ,Ludwigsallee,Ponttor,1268,47,2
+22.03.14,Trierer Str.,Innenstadt,1026,45,3
+ ,Lütticher Str.,Belgien,457,29,2
+23.03.14,Adenauerallee,Monschauer Str.,982,36,1
+24.03.14,Raafstr.,Oberforstbach,105,15,2
+25.03.14,Nordstr.,Trierer Str.,214,23,2
+ ,Rombachstr.,Schulzentrum,179,14,1
+26.03.14,Ronheider Weg,Weißhausstr.,130,15,1
+27.03.14,Monschauer Str.,Schmithof,654,22,3
+ ,Vetschauer Weg,Horbacher Str.,54,7,-
+28.03.14,Raerener Str.,Sief,147,24,4
+ ,Seffenter Weg,Pariser Ring,75,3,-
+29.03.14,Roermonder Str.,Richterich,542,17,1
+30.03.14,Vaalser Str.,Innenstadt,1129,27,3
+ ,Trierer Str.,Brand,1278,31,2
+31.03.14,Monschauer Str.,Innenstadt,652,21,1

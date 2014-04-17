@@ -1,0 +1,88 @@
+Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+02.01.2013,Lütticher Str.,Belgien,87,16,2
+ ,Eupener Str.,Grenze,73,12,7
+ ,Horbacher Str.,Horbach,131,13,3
+ ,Jülicher Str.,Haaren,382,31,2
+ ,Hohenstaufenallee,Lütticher Str.,256,14,-
+03.01.2013,Trierer Str.,Kornelimünster,904,10,-
+ ,Schurzelter Str.,Seffent,126,22,1
+ ,Krefelder Str.,Innenstadt,586,28,2
+ ,Ludwigsallee,Ponttor,659,31,6
+04.01.2013,Prager Ring,Krefelder Str.,585,19,1
+ , Josefstr.,Von-Coels-Str.,159,16,-
+ ,Münsterstr.,Brand,63,31,-
+ ,Limburger Str.,Lütticher Str.,129,32,3
+05.01.2013,Neuenhofstraße,Debyestr.,369,15,4
+ ,Trierer Str.,Brand,474,18,3
+06.01.2013,Jülicher Str.,Haaren,291,25,6
+ ,Krefelder Str.,Würselener Str.,243,61,14
+07.01.2013,Peliserkerstr.,Jülicher Str.,223,10,1
+ ,Kornelimünsterweg,Adenauerallee,192,31,6
+ ,Vetschauer Weg,Laurensberger Str.,138,30,2
+ ,Von-Coels-Str.,Berliner Ring,518,6,-
+ ,Prager Ring,Krefelder Str.,917,49,1
+08.01.2013,Eupener Str.,Innenstadt,301,27,2
+ ,Sittarder  Str.,Schopenhauerstr.,199,36,3
+ ,Melatener Str.,Turmstr.,31,7,-
+09.01.2013,Karl-Marx-Allee,Fr.- Ebert-Allee,339,27,4
+ ,Aachener-und-Münchener-Allee,Hohenstaufenallee,288,42,7
+ ,Hergenrather Weg,Lütticher Str.,104,46,3
+ ,Schagenstr.,Rombachstr.,125,20,1
+09.01.2013,Bleiberger Str.,Vaalser Str.,131,10,-
+10.01.2013,Hanbrucher Str.,Vaalser Str.,152,8,-
+ ,Saarstr.,Monheimsallee,1164,41,3
+ ,Nordstr.,Trierer Str.,142,8,2
+11.01.2013,Oberforstbacher Str.,Kornelimünster,45,3,-
+ ,Aretzstr.,Peliserkerstr.,206,35,4
+ ,Auf der Hüls,Charlottenburger Allee,152,21,-
+ ,Von-Coels-Str.,Lindenstr.,962,9,-
+12.01.2013,Vaalser Str.,Innenstadt,199,29,2
+ ,Jülicher Str.,Innenstadt,511,42,-
+ ,Adenauerallee,Monschauer Str.,546,11,-
+13.01.2013,Prager Ring,Krefelder Str.,410,46,1
+ ,Lütticher Str.,Belgien,223,25,-
+14.01.2013,Branderhofer Weg,Adenauerallee,170,21,-
+ ,Lütticher Str.,Innenstadt,423,32,1
+ ,Sittarder Str.,Königsberger Str.,157,27,-
+ ,Kronenberg,Vaalser Str.,82,19,-
+ ,Berensberger Str.,Roermonder Str.,161,18,3
+15.01.2013,Reinhardstr.,Neuenhofstr.,179,35,1
+ ,Adenauerallee,Trierer Str.,713,15,-
+ ,Maria-Theresia-Allee,Innenstadt,145,11,2
+ ,Vaalser Str.,Niederlande,545,23,5
+17.01.2013,Aretzstr.,Peliserkerstr.,177,6,-
+ ,Purweider Weg,Merowingerstr.,228,30,-
+18.01.2013,Branderhofer Weg,Innenstadt,269,25,-
+ ,Freunder Landstr.,Stolberg,360,7,-
+21.01.2013,Trierer Str.,Innenstadt,653,18,1
+22.01.2013,Raafstr,Oberforstbach,55,3,-
+       ,Purweider Weg,Laurensberg,166,12,-
+23.01.2013,Vaalser Str.,Innenstadt,1266,47,2
+ ,Josef-Von-Görres-Str,Europaplatz,892,27,1
+ ,Auf der Hüls,Jülicher Str.,103,15,-
+24.01.2013,Eupener Str.,Grenze,148,23,-
+24.01.2013,Prämienstr.,Schleidener Str.,97,23,2
+ ,Würselener Str.,Haaren- Markt,42,1,1
+ ,Horbacher Str.,Horbach,124,9,1
+ 25.01.13,Prager Ring,Krefelder Str.,932,25,2
+ ,Jülicher Str.,Innenstadt,341,2,-
+ ,Krefelder Str.,Innenstadt,383,26,-
+26.01.2013,Lütticher Str.,Innenstadt,516,22,-
+ ,Von-Coels-Str.,Stolberg,472,24,-
+27.01.2013,Krefelder Str.,Würselen,236,70,4
+28.01.2013,Peliserkerstr.,Jülicher Str.,223,24,4
+ ,Kronenberg,Amsterdamer Ring,67,3,-
+ ,Adenauerallee,Trierer Str.,331,5,-
+ ,Nerscheider Weg,Monschauer Str.,26,4,1
+29.01.2013,Bleiberger Str.,Vaalser Str.,129,3,1
+ ,Nordstr.,Trierer Str.,192,28,5
+ ,Verlautenheidener Str.,Stolberg,278,7,-
+ ,Josefstr.,Von-Coels-Str.,261,43,-
+30.01.2013,Limburger Str.,Lütticher Str.,288,27,-
+ ,Auf der Hüls,Charlottenburger Allee,137,17,7
+ ,Rombachstr.,Schulzentrum,146,11,-
+ ,Forster Weg,Erzbergerallee,54,11,1
+31.01.2013,Sittarder Str.,Schopenhauerstr.,297,45,2
+ ,Trierer Str.,Brand,523,16,4
+ ,Raerener Str.,Sief,31,7,-
+ ,Schurzelter Str.,Seffent,300,41,2

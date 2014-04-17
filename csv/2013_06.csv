@@ -1,0 +1,62 @@
+Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+03.06.13,Aachener und Münchener Allee,Kaiser-Friedrich-Allee,186,17,4
+ ,Purweider Weg,Laurensberg,195,22,3
+04.06.13,Schleidener Str.,Eifel,277,19,5
+ ,Himmelsleiter,Walheim,764,21,3
+ ,Lütticher Str.,Belgien,850,46,4
+ ,Freunder Landstr.,Stolberg,496,7,-
+05.06.13,Nordstr.,Trierer Str.,297,30,-
+ ,Schurzelter Str.,Seffent,189,24,4
+ ,Auf der Hüls,Charlottenburger Allee,133,20,3
+06.06.13,Kullenhofstr.,Valkenburger  Str.,176,20,1
+ ,Passstr.,Jülicher Str.,250,19,6
+07.06.13,Kesselstr.,Monschauer Str.,111,12,-
+ ,Horbacher Str.,Horbach,215,9,-
+10.06.13,Adenauerallee,Trierer Str.,1263,29,8
+ ,Branderhofer Weg,Innenstadt,317,22,-
+ ,Alte Vaalser Str.,Vaalser Str.,134,13,1
+11.06.13,Vetschauer Weg,Laurensberger Str.,92,19,1
+ ,Karl-Marx-Allee,Adenauerallee,275,21,4
+12.06.13,Raafstr.,Oberforstbach,147,19,2
+ ,Kullenhofstr.,Valkenburger Str.,141,7,-
+ ,Vaalser Str.,Innenstadt,698,21,5
+13.06.13,Krefelder Str.,Würselen,715,41,7
+ ,Albert -Einstein - Str.,Aachener Str.,75,3,-
+14.06.13,Jülicher Str.,Haaren,587,32,8
+ ,Schlossparkstr.,Soers,165,6,1
+ ,Monschauer Str.,Lichtenbusch,916,14,-
+17.06.13,Jülicher Str.,Haaren,279,11,2
+17.06.13,Lütticher Str.,Belgien,441,18,3
+18.06.13,Limburger Str.,Lütticher Str.,225,32,7
+ ,Monschauer Str.,Innenstadt,279,6,1
+19.06.13,Aretzstr.,Peliserkerstr.,349,21,5
+ ,Josefstr.,Von-Coels-Str.,163,15,1
+20.06.13,Eupener Str.,Hauset,167,19,2
+ ,Von-Coels-Str.,Stolberg,257,13,-
+21.06.13,Saarstr.,Monheimsallee,1975,43,8
+ ,Krefelder Str.,Würselen,632,19,4
+22.06.13,Prager Ring,Krefelder Str.,1162,151,18
+23.06.13,Krefelder Str.,Würselen,1149,43,9
+24.06.13,Maria-Theresia-Allee,Innenstadt,373,41,-
+ ,Jülicher Str.,Innenstadt,440,22,1
+ ,Karl-Marx-Allee,Friedrich- Ebert-Allee,271,29,6
+ ,Rombachstr.,Schulzentrum,256,21,1
+25.06.13,In den Atzenbenden,Friedenstr.,185,42,-
+ ,Von-Coels-Str.,Stolberg,563,26,2
+ ,Krefelder Str.,Würselen,752,55,10
+ ,Münsterstr.,Brand,51,13,3
+26.06.13,Purweider Weg,Laurensberg,258,39,-
+ ,Eupener Str.,Innenstadt,533,44,4
+ ,Peliserkerstr.,Jülicher Str.,318,29,9
+27.06.13,Schurzelter Str.,Seffent,221,38,-
+ ,Stettiner Str.,Grauenhof,169,23,-
+ ,Krefelder Str.,Würselen,549,51,7
+ ,Purweider Weg,Merowingerstr.,133,27,6
+28.06.13,Saarstr.,Monheimsallee,1702,36,-
+ ,Trierer Str.,Kornelimünster,630,9,-
+ ,Aretzstr.,Peliserkerstr.,337,11,2
+ ,Aachener Str.,Schleckheim,175,14,3
+29.06.13,Vaalser Str.,Innenstadt,1584,72,-
+ ,Prager Ring,Krefelder Str.,796,21,-
+30.06.13,Eupener Str.,Grenze,241,56,6
+ ,Roermonder Str.,Richterich,263,24,-

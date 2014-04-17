@@ -1,0 +1,82 @@
+Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+02.04.13,Eupener Str.,Grenze,200,39,7
+ ,Nerscheider Weg,Pascalstr.,119,28,6
+ ,Maria-Theresia-Allee,Innenstadt,174,76,-
+ ,Karlstr.,Von-Coels-Str.,46,17,1
+03.04.13,Horbacher Str.,Horbach,87,15,-
+ ,Jülicher Str.,Haaren,560,44,2
+ ,Sittarder Str.,Schopenhauerstr.,223,64,-
+ ,Adenauerallee,Trierer Str.,403,35,-
+04.04.13,Welkenrather Str.,Vaalser Str.,58,14,3
+ ,Lütticher Str.,Innenstadt,558,42,-
+ ,Kesselstr.,Monschauer Str.,67,13,1
+ ,Jülicher Str.,Haaren,214,5,1
+05.04.13,Königsberger Str.,Trierer Str.,150,33,1
+ ,Krefelder Str.,Würselen,804,95,4
+ ,Monschauer Str.,Eifel,466,46,8
+06.04.13,Lütticher Str.,Belgien,119,27,1
+ ,Roermonder Str.,Richerich,547,41,-
+07.04.13,Schleidener Str.,Roetgen,143,29,4
+08.04.13,Branderhofer Weg,Innenstadt,304,70,-
+ ,Saarstr.,Monheimsallee,916,72,-
+ ,Limburger Str.,Hohenstaufenallee,141,19,3
+ ,Nordstr.,Trierer Str.,254,71,7
+09.04.13,Ronheider Weg,Weißhausstr.,115,41,3
+ ,Purweider Weg,Laurensberg,195,39,-
+ ,Aretzstr.,Peliserkerstr.,282,38,12
+10.04.13,Raafstr.,Oberforstbach,74,19,5
+ ,Aachener und Münchener Allee,Hohenstaufenallee,263,21,2
+ ,Schagenstr.,Rombachstr.,266,46,1
+10.04.13,Kronenberg,Amsterdamer Ring,105,33,-
+11.04.13,Ronheider Weg,Weißhausstr.,122,35,1
+ ,Reinhardstr.,Neuenhofstr.,153,47,-
+ ,Passstr.,Jülicher Str.,272,29,5
+12.04.13,Karl-Marx-Allee,Friedrich-Ebert-Allee,467,71,9
+ ,Aachener Str.,Walheim,182,9,1
+ ,Kalkbergstr.,Verlautenheidener Str.,214,41,-
+ ,Schlossparkstr.,Soers,161,21,-
+13.04.13,Jülicher Str.,Innenstadt,533,42,8
+14.04.13,Saarstr.,Monheimsallee,486,32,4
+15.04.13,Limburger Str.,Hohenstaufenallee,131,10,-
+ ,Welkenrather Str.,Vaalser Str.,66,17,-
+ ,Aachener Str.,Walheim,215,7,-
+ ,Melatener Str.,Turmstr.,28,4,-
+16.04.13,Ronheider Weg,Luxemburger Ring,72,8,1
+ ,Eupener Str.,Grenze,540,86,10
+ ,Schurzelter Str.,Laurensberg,106,29,8
+ ,Nonnenhofstr.,Düserhofstr.,27,6,2
+17.04.13,Krefelder Str.,Würselen,1425,132,22
+ ,Monschauer Str.,Innenstadt,543,16,1
+ ,Aachener Str.,Walheim,146,5,1
+ ,Prämienstr.,Walheimer Str.,95,21,1
+ ,Passstr.,Jülicher Str.,155,13,-
+18.04.13,Kornelimünsterweg,Hitfelder Str.,419,42,1
+ ,Branderhofer Weg,Innenstadt,336,38,-
+ ,Aretzstr.,Peliserkerstr.,160,7,-
+ ,Auf der Hüls,Charlottenburger Allee,102,17,2
+19.04.13,Maria-Theresia-Allee,Luxemburger Ring,180,36,1
+ ,Jülicher Str.,Haaren,707,22,1
+ ,Vaalser Str.,Innenstadt,572,10,-
+ ,Prämienstr.,Schleidener Str.,79,13,2
+20.04.13,Ludwigsallee,Ponttor,332,44,2
+ ,Neuenhofstr.,Debyestr.,862,26,6
+21.04.13,Himmelsleiter,Innenstadt,403,28,5
+ ,Prager Ring,Jülicher Str.,352,40,5
+22.04.13,Schleidener Str.,Eifel,254,19,1
+ ,Trierer Str.,Brand,1233,22,3
+23.04.13,Eupener Str.,Grenze,195,25,4
+ ,Nordstr.,Trierer Str.,173,24,5
+24.04.13,Karl-Marx-Allee,Adenauerallee,194,35,8
+ ,Freunder Landstr.,Stolberg,235,12,-
+25.04.13,Peliserkerstr.,Jülicher Str.,346,32,7
+ ,Hanbrucher Str.,Vaalser Str.,86,9,-
+26.04.13,Krefelder Str.,Würselen,763,56,9
+ ,Hofenbornstr.,Haaren-Zentrum,76,9,1
+27.04.13,Jülicher Str.,Innenstadt,491,28,7
+ ,Roermonder Str.,Kohlscheid,525,6,-
+28.04.13,Vaalser Str.,Innenstadt,999,83,13
+29.04.13,Hergenrather Weg,Lütticher Str.,171,53,2
+ ,Nordstr.,Trierer Str.,190,17,4
+ ,Passstr.,Jülicher Str.,299,38,-
+30.04.13,Karl-Marx-Allee,Innenstadt,197,29,5
+ ,Peliserkerstr.,Josef-von-Görres-Str.,127,8,-

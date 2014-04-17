@@ -1,0 +1,66 @@
+Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h,über 20 km/h
+01.03.13,Aretzstr.,Peliserkerstr.,158,17,2
+,Königsberger Str.,Grauenhof,225,25,6
+,Schurzelter Str.,Seffent,165,19,-
+,Von-Coels-Str.,Stolberg,694,27,1
+ 02.03.13,Krefelder Str.,Würselen,809,70,13
+ 03.03.13,Prager Ring,Krefelder Str.,411,54,8
+ 04.03.13,Vaalser Str.,Innenstadt,696,41,-
+,Würselener Str.,Haaren-Mitte,29,3,-
+,Paßstr.,Jülicher Str.,236,25,-
+ 05.03.13,Branderhofer Weg,Innenstadt,109,13,-
+,Prämienstr.,Schleidener Str.,100,30,-
+,Münsterstr.,Brand,71,22,3
+ 06.03.13,Lintertstr.,Hitfeld,303,9,-
+,Horbacher Str.,Horbach,278,52,-
+,Limburger Str.,Lütticher Str.,140,27,2
+ 07.03.13,Krefelder Str.,Würselen,481,48,8
+,Obere Drimbornstr.,Adenauerallee,61,18,3
+,Eupener Str.,Innenstadt,589,86,8
+ 08.03.13,Welkenrather Str.,Vaalser Str.,69,23,3
+,Trierer Str.,Kornelimünster,884,22,-
+,Adalbertsteinweg,Kaiserplatz,687,7,-
+ 09.03.13,Neuenhofstr.,Debyestr.,822,26,1
+,Krefelder Str.,Würselen,254,21,4
+ 10.03.13,Vaalser Str.,Niederlande,402,46,4
+,Jülicher Str.,Innenstadt,157,10,3
+ 11.03.13,Vaalser Str.,Niederlande,873,27,-
+,Lütticher Str.,Belgien,399,28,3
+ 13.03.13,Adenauerallee,Trierer Str.,486,8,1
+,Vaalser Str.,Innenstadt,657,10,-
+ 14.03.13,Jülicher Str.,Haaren,401,7,-
+,Prämienstr.,Walheimer Str.,111,38,7
+,Lütticher Str.,Grenze,159,4,1
+,Prager Ring,Krefelder Str.,1432,93,3
+ 15.03.13,Aretzstr.,Peliserkerstr.,236,8,-
+,Sittarder Str.,Schopenhauerstr.,123,20,-
+,Purweider Weg,Merowingerstr,168,36,-
+ 16.03.13,Himmelsleiter,Innenstadt,597,7,1
+ 17.03.13,Krefelder Str.,Würselen,386,68,8
+ 18.03.13,Peliserkerstr.,Jülicher Str.,383,42,7
+,Vetschauer Weg,Horbacher Str.,76,13,-
+ 19.03.13,Schurzelter Str.,Seffent,135,22,3
+,Roermonder Str.,Richterich,360,18,2
+ 20.03.13,Aachener und Münchener Allee,Hohenstaufenallee,309,32,7
+,Passstr.,Jülicher Str.,270,35,8
+ 21.03.13,Branderhofer Weg,Innenstadt,201,19,6
+,Rombachstr.,Schulzentrum,196,21,2
+ 22.03.13,Trierer Str.,Brand,497,-,-
+,Verlautenheidener Str.,Zentrum,986,74,13
+ 25.03.13,Krefelder Str.,Würselen,812,46,4
+,Trierer Str.,Kornelimünster,526,18,-
+,Roermonder Str.,Ponttor,659,17,2
+,Lütticher Str.,Belgien,318,29,6
+ 26.03.13,Eupener Str.,Grenze,137,21,5
+,Josefstr.,Von-Coels-Str.,186,20,1
+,Monschauer Str.,Lichtenbusch,538,18,3
+,Trierer Str.,Kornelimünster,754,11,-
+ 27.03.13,Neuenhofstr.,Debyestr.,474,22,1
+,Saarstr.,Monheisallee,1224,53,-
+,Krefelder Str.,Würselen,984,132,22
+,Josefstr.,Von-Coels-Str.,172,19,3
+ 28.03.13,Vaalser Str.,Niederlande,863,38,1
+ 28.03.13,Würselener Str.,Haaren-Mitte,97,11,-
+,Lütticher Str.,Kelmis,247,35,4
+,Horbacher Str.,Grenze,95,3,-
+ 30.03.13,Trierer Str.,Brand,807,72,9

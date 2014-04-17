@@ -1,0 +1,83 @@
+﻿Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+01.02.14,Jülicher Str.,Innenstadt,457,13,-
+03.02.14,Aretzstr.,Peliserkerstr.,162,16,2
+ ,Schurzelter Str.,Seffent,309,24,-
+ ,Reinhardstr.,Trierer Str.,238,51,2
+04.02.14,Josefstr.,Von-Coels-Str.,195,19,3
+ ,Krefelder Str.,Würselen,1144,110,15
+ ,Raafstr.,Oberforstbach,150,24,2
+ ,Josefstr.,Von-Coels-Str.,223,32,1
+05.02.14,Lütticher Str.,Belgien,383,29,4
+ ,Albert-Einstein-Str.,Aachener Str.,51,11,-
+ ,Forster Weg,Erzbergerallee,109,32,2
+ ,Forster Weg,Karl-Marx-Allee,124,46,1
+06.02.14,Jülicher Str.,Haaren,1328,28,-
+ ,Trierer Str.,Kornelimünster,689,14,-
+ ,Prämienstr.,Walheimer Str.,105,17,1
+ ,Forster Weg,Karl-Marx-Allee,175,45,-
+ ,Monheimsallee,Ludwigsallee,441,28,4
+07.02.14,Laurensberger Str.,Rathausstr.,170,95,6
+ ,Forster Weg,Karl-Marx-Allee,127,32,2
+ ,Von-Coels-Str.,Stolberg,834,9,-
+ ,Peliserkerstr.,Jülicher Str.,151,15,2
+ ,Eupener Str.,Belgien,341,45,12
+08.02.14,Vaalser Str.,Innenstadt,884,39,1
+ ,Prager Ring,Krefelder Str.,1390,92,2
+09.02.14,Vaalser Str.,Innenstadt,574,44,-
+ ,Krefelder Str.,Innenstadt,412,32,-
+10.02.14, Albert-Einstein-Str.,Prämienstr.,35,-,-
+ ,Würselener Str.,Würselen,204,65,2
+ ,Eupener Str.,Diepenbenden,358,8,-
+10.02.14,Bleiberger Str.,Vaalser Str.,132,21,3
+11.02.14,Passstr.,Jülicher Str.,378,14,2
+ ,Stolberger Str.,Reichsweg,149,16,3
+ ,Schurzelter Str.,Seffent,162,16,-
+ ,Adenauerallee,Monschauer Str.,1072,12,-
+12.02.14,Monheimsallee,Ludwigsallee,509,15,2
+ ,Neuenhofstr.,Debyestr.,869,27,3
+ ,Krefelder Str.,Würselen,1212,60,30
+ ,Jülicher Str.,Haaren,488,31,1
+13.02.14,Branderhofer Weg,Innenstadt,415,48,7
+ ,Laurensberger Str.,Rathausstr.,253,81,4
+ ,Branderhofer Weg,Innenstadt,170,33,-
+14.02.14,Nerscheider Weg,Aachener Str.,126,26,7
+ ,Albert-Einstein-Str.,Aachener Str.,273,39,7
+ ,Lütticher Str.,Belgien,361,27,-
+ ,Reinhardstr.,Trierer Str.,234,41,2
+15.02.14,Laurensberger Str.,Rathausstr.,88,41,11
+16.02.14,Krefelder Str.,Würselen,552,76,7
+17.02.14,Karl-Marx-Allee,Adenauerallee,223,24,7
+ ,Forster Weg,Erzbergerallee,99,21,1
+ ,Prager Ring,Krefelder Str.,1001,21,-
+18.02.14,Albert-Einstein-Str.,Aachener Str.,250,38,-
+ ,Trierer Str.,Brand,1086,48,-
+ ,Monschauer Str.,Lichtenbusch,700,12,2
+ ,Nordstr.,Trierer Str.,224,24,3
+19.02.14,Trierer Str.,Brand,1003,22,-
+ ,Josefstr.,Von-Coels-Str.,180,23,-
+ ,Limburger Str.,Hohenstaufenallee,135,15,2
+ ,Horbacher Str.,Horbach,148,26,6
+20.02.14,Aureliusstr.,Theaterstr.,114,15,-
+ ,Branderhofer Weg,Innenstadt,277,18,-
+ ,Purweider Weg,Laurensberg,218,46,2
+21.02.14,Albert-Einstein-Str.,Aachener Str.,265,31,-
+21.02.14,Passstr.,Krefelder Str.,95,6,-
+ ,AC+ Münchener Allee,Kaiser-Friedrich-Allee,117,24,3
+22.02.14,Trierer Str.,Innenstadt,2019,48,2
+ ,Lütticher Str.,Belgien,427,34,3
+23.02.14,Neuenhofstr.,Debyestr.,108,21,2
+ ,Krefelder Str.,Innenstadt,525,62,5
+24.02.14,Josef-von-Görres-Str.,Europaplatz,514,10,-
+ ,Adenauerallee,Monschauer Str.,905,10,-
+ ,Schurzelter Str.,Seffent,191,19,2
+25.02.14,Laurensberger Str.,Rathausstr.,187,33,4
+ ,Nordstr.,Trierer Str.,335,34,1
+ ,Krefelder Str.,Würselen,663,35,7
+26.02.14,Kornelimünsterweg,Adenauerallee,636,31,4
+ ,Forster Weg,Erzbergerallee,43,9,3
+ ,Krefelder Str.,Innenstadt,1161,24,1
+ ,Jülicher Str.,Innenstadt,286,10,1
+27.02.14,Karl-Marx-Allee,Friedrich-Ebert-Allee,240,12,4
+28.02.14,Würselener Str.,Alt Haarener Str.,56,7,-
+ ,Jülicher Str.,Haaren,645,18,4
+ ,Albert-Einstein-Str.,Schleidener Str.,30,5,-

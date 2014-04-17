@@ -1,0 +1,91 @@
+Datum,Messplatz,Fahrtrichtung,Fahrzeuge gesamt,bis 20 km/h ,über 20 km/h
+01.07.13,Vaalser Str.,Innenstadt,1084,56,8
+ ,Reinhardstr.,Trierer Str.,205,21,2
+ ,Josefstr.,Von-Coels-Str.,280,32,7
+ ,Auf der Hüls,Charlottenburger Allee,147,24,1
+02.07.13,Aachener-und-Münchener-Allee,Kaiser-Friedrich-Allee,94,9,-
+ ,Branderhofer Weg,Innenstadt,352,37,1
+ ,Jülicher Str.,Haaren,919,41,2
+03.07.13,Nerscheider Weg,Pascalstr.,311,32,9
+ ,Kronenberg,Amsterdamer Ring,98,8,-
+04.07.13,Krefelder Str.,Würselen,805,85,3
+ ,Adenauerallee,Trierer Str.,1130,35,-
+ ,Kornelimünsterweg,Adenauerallee,196,20,-
+05.07.13,Am Hangeweiher,Kaiser-Friedrich-Allee,62,15,-
+ ,Würselener Str.,Würselen,155,40,-
+ ,Passstr.,Jülicher Str.,325,21,7
+ ,Purweider Weg,Merowingerstr.,100,21,5
+06.07.13,Trierer Str.,Brand,789,28,6
+07.07.13,Roermonder Str.,Richterich,244,36,7
+08.07.13,Aachener Str.,Hitfeld,1090,228,4
+ ,Würselener Str.,Würselen,155,13,1
+ ,Karl-Marx-Allee,Friedrich-Ebert-Allee,681,55,8
+ ,Lütticher Str.,Belgien,293,29,7
+09.07.13,Krefelder Str.,Würselen,1436,83,1
+ ,Kesselstr.,Monschauer Str.,79,9,1
+10.07.13,Ronheider Weg,Weißhausstr.,124,20,-
+ ,Raafstr.,Oberforstbach,154,33,-
+ ,Aachener Str.,Walheim,439,14,-
+11.07.13,Prager Ring,Krefelder Str.,1296,73,2
+ ,Purweider Weg,Merowingerstr.,171,22,-
+11.07.13,Saarstr.,Monheimsallee,609,19,4
+ ,Welkenrather Str.,Vaalser Str.,47,13,2
+12.07.13,Lütticher Str.,Belgien,531,30,-
+ ,Jülicher Str.,Haaren,1038,63,2
+ ,Purweider Weg,Merowingerstr.,80,12,-
+ ,Trierer Str.,Brand,1016,25,6
+13.07.13,Roermonder Str.,Richterich,116,5,-
+ ,Monschauer Str.,Lichtenbusch,692,6,-
+ ,Sittarder Str.,Schopenhauerstr.,184,46,-
+14.07.13,Trierer Str.,Kornelimünster,725,66,6
+ ,Jülicher Str.,Innenstadt,135,8,2
+15.07.13,Eupener Str.,Belgien,277,42,13
+ ,Prämienstr.,Schleidener Str.,70,12,3
+ ,Passstr.,Jülicher Str.,598,63,2
+ ,Kronenberg,Amsterdamer Ring,66,13,1
+16.07.13,Josefstr.,Nirmer Str.,171,26,5
+ ,Münsterstr.,Brand,217,53,1
+ ,Branderhofer Weg,Adenauerallee,115,20,1
+17.07.13,Karl-Marx-Allee,Adenauerallee,342,57,15
+ ,Kalkbergstr.,Verlautenheidener Str.,236,33,-
+ ,Saarstr.,Monheimsallee,1170,30,-
+ ,Auf der Hüls,Charlottenburger Allee,80,16,-
+18.07.13,Lütticher Str.,Kelmis,260,41,8
+ ,Limburger Str.,Hohenstaufenallee,208,31,-
+ ,Branderhofer Weg,Adenauerallee,60,10,-
+19.07.13,Josefstr.,Nirmer Str.,177,19,3
+ ,Peliserker Str.,Josef-von-Görres-Str.,158,11,-
+20.07.13,Krefelder Str.,Würselen,739,104,22
+ ,Roermonder Str.,Richterich,294,7,1
+21.07.13,Himmelsleiter,Innenstadt,544,9,1
+22.07.13,Jülicher Str.,Haaren,677,31,1
+ ,Lütticher Str.,Innenstadt,440,38,5
+ ,Hohenstaufenallee,Lütticher Str.,266,14,-
+22.07.13,Jülicher Str.,Innenstadt,526,29,7
+23.07.13,Krefelder Str.,Würselen,857,78,16
+ ,Himmelsleiter,Innenstadt,425,18,-
+24.07.13,Welkenrather Str.,Vaalser Str.,56,19,-
+ ,Freunder Str.,Von-Coels-Str.,804,27,1
+ ,Trierer Str.,Brand,551,14,2
+25.07.13,Am Hangeweiher,Kaiser-Friedrich-Allee,33,10,-
+ ,Kesselstr.,Monschauer Str.,88,6,-
+ ,Prager Ring,Krefelder Str.,978,76,1
+ ,Raafstr.,Oberforstbach,108,16,2
+26.07.13,Krefelder Str.,Innenstadt,1066,87,2
+ ,Vaalser Str.,Innenstadt,576,13,1
+ ,Aachener Str.,Walheim,253,25,6
+27.07.13,Neuenhofstr.,Debyestr.,431,27,-
+ ,Adenauerallee,Monschauer Str.,743,17,1
+28.07.13,Vaalser Str.,Innenstadt,462,36,3
+ ,Trierer Str.,Innenstadt,625,35,-
+29.07.13,Aachener Str.,Nütheim,204,22,3
+ ,Schleidener Str.,Roetgen,134,7,1
+ ,Passstr.,Jülicher Str.,336,35,7
+ ,Freunder Landstr.,Stolberg,346,5,-
+30.07.13,Jülicher Str.,Haaren,400,31,6
+ ,Josefstr.,Von-Coels-Str.,366,31,1
+ ,Purweider Weg,Merowingerstr.,195,31,-
+31.07.13,Krefelder Str.,Würselen,574,67,13
+ ,Schurzelter Str.,Laurensberg,54,18,6
+ ,Kornelimünsterweg,Hitfelder Str.,311,22,2
+ ,Schurzelter Str.,Seffent,204,30,1
