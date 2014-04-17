@@ -3,7 +3,7 @@
 
 
 <head>
-    <title>Radarkontrollen in Aachen</title>
+    <title>Geschwindigkeitskontrollen in Aachen 2013</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <meta name="author" content="Stephan Schielke">
     <meta charset="utf-8">
@@ -17,8 +17,6 @@
     <script src="http://openlayers.org/api/OpenLayers.js"></script>
     <script src="http://openstreetmap.org/openlayers/OpenStreetMap.js"></script>
     <script type="text/javascript">
-
-//TODO Straßen farblich markieren nach Anzahl Messungen je rötlicher desto mehr Verkehr
 
     function IO(U, V) {
         var X = !window.XMLHttpRequest ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest;
@@ -50,6 +48,11 @@
     var mapzindex = 1;
     var blitzgefahrMaxValue = 2;
     var blitzgefahrMinValue = 1;
+
+    // var vonJahr = 2013;
+    // var vonMonat = 01;
+    // var bisJahr = 2014;
+    // var bisMonat = 03;
 
     function init() {
 
@@ -116,122 +119,125 @@
         // Radarstellen Layer mit Markern
 
         var layerRadar = new OpenLayers.Layer.Markers("Radarkontrollen");
-
-        console.log("CSV Datei lesen");
-        var csvArray = IO('./csv/2013_12.csv').split(/\n/g).map(function(row){return row.split(/\t|,/g)} )
-//        console.debug(csvArray);
-
-        var zeile = 1;
-        var datum;
         var messungen = new Array();
-        csvArray.forEach(function(entry) {
 
-            var messung = new Object();
+        for (var i=1;i<=12;i++) { 
 
-            // Erste Zeile ist Kopfzeile und wird übersprungen
-            if (zeile != 1){
-                // console.debug((zeile-1) + ". Messung erzeugen");
+            console.log("CSV Datei lesen");
+            var csvArray = IO('./csv/2013_' + ("0" + i).slice(-2) + '.csv').split(/\n/g).map(function(row){return row.split(/\t|,/g)} )
+    //        console.debug(csvArray);
+
+            var zeile = 1;
+            var datum;
+            csvArray.forEach(function(entry) {
+
+                var messung = new Object();
+
+                // Erste Zeile ist Kopfzeile und wird übersprungen
+                if (zeile != 1){
+                    // console.debug((zeile-1) + ". Messung erzeugen");
+                    
+                    // Das vorherige Datum eintragen, falls keines angegeben wurde.
+                    // Messung fand offensichtlich am selben Tag statt.
+                    if (!isBlank(entry[0])) {
+                        datum = entry[0];
+                    }
+                    messung.Datum = datum;
+                    messung.Messplatz = entry[1];
+                    messung.Fahrtrichtung = entry[2];
+                    messung.FahrzeugeGesamt = parseInt(entry[3]);
+                    // Falls Zelle ein Bindestrich ist, mache eine 0 daraus
+                    if (isInt(parseInt(entry[4]))) {
+                        messung.Bis20kmh = parseInt(entry[4]);    
+                    } else {
+                        messung.Bis20kmh = 0;
+                    }
+                    if (isInt(parseInt(entry[5]))) {
+                        messung.Ueber20kmh = parseInt(entry[5]);    
+                    } else {
+                        messung.Ueber20kmh = 0;
+                    }
+                    messung.GeoJson = "";
+
+                    // Gefahrengrade
+                    var faktorGefahrNormal = 1;
+                    var faktorGefahrUnter20 = 3;
+                    var faktorGefahrUeber20 = 5;
+
+                    var gefahrNormal = (messung.FahrzeugeGesamt - (messung.Bis20kmh + messung.Ueber20kmh)) * faktorGefahrNormal;
+                    var gefahrUnter20 = messung.Bis20kmh * faktorGefahrUnter20;
+                    var gefahrUeber20 = messung.Ueber20kmh * faktorGefahrUeber20;
+
+                    // Blitzgefahr = (N. Gefahr + Ü<=20 Gefahr + Ü>20 Gefahr) * (1/Anteil aller Messungen)
+                    messung.Blitzgefahr = Math.round((gefahrNormal + gefahrUnter20 + gefahrUeber20) * (1/messung.FahrzeugeGesamt) * 100) / 100
+
+                    messungen.push(messung);  
+                }
                 
-                // Das vorherige Datum eintragen, falls keines angegeben wurde.
-                // Messung fand offensichtlich am selben Tag statt.
-                if (!isBlank(entry[0])) {
-                    datum = entry[0];
-                }
-                messung.Datum = datum;
-                messung.Messplatz = entry[1];
-                messung.Fahrtrichtung = entry[2];
-                messung.FahrzeugeGesamt = parseInt(entry[3]);
-                // Falls Zelle ein Bindestrich ist, mache eine 0 daraus
-                if (isInt(parseInt(entry[4]))) {
-                    messung.Bis20kmh = parseInt(entry[4]);    
-                } else {
-                    messung.Bis20kmh = 0;
-                }
-                if (isInt(parseInt(entry[5]))) {
-                    messung.Ueber20kmh = parseInt(entry[5]);    
-                } else {
-                    messung.Ueber20kmh = 0;
-                }
-                messung.GeoJson = "";
-
-                // Gefahrengrade
-                var faktorGefahrNormal = 1;
-                var faktorGefahrUnter20 = 3;
-                var faktorGefahrUeber20 = 5;
-
-                var gefahrNormal = (messung.FahrzeugeGesamt - (messung.Bis20kmh + messung.Ueber20kmh)) * faktorGefahrNormal;
-                var gefahrUnter20 = messung.Bis20kmh * faktorGefahrUnter20;
-                var gefahrUeber20 = messung.Ueber20kmh * faktorGefahrUeber20;
-
-                // Blitzgefahr = (N. Gefahr + Ü<=20 Gefahr + Ü>20 Gefahr) * (1/Anteil aller Messungen)
-                messung.Blitzgefahr = Math.round((gefahrNormal + gefahrUnter20 + gefahrUeber20) * (1/messung.FahrzeugeGesamt) * 100) / 100
-
-                messungen.push(messung);  
-            }
-            
-            zeile++;
-        });
-
-        var size = new OpenLayers.Size(30, 30);
-        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-        // Adresssuche über Nominatim anstoßen
-        var getNominatimMarker = function(messung){
-            
-            var nominatimQuery = 'http://nominatim.openstreetmap.org/search?q=' + messung.Messplatz + '+Aachen' + '&format=json&limit=1&polygon_geojson=1';
-            
-            return $.getJSON(nominatimQuery, function(data) {
-            
-                if (data.length == 1) {
-                    // Nominatim-Suche war erfolgreich
-                    //console.log("Nominatim Suche war erfolgreich für: " + messung.Messplatz + "(" + messung.Datum + ")");
-
-                    messung.GeoJson = data[0].geojson;
-
-                    // Koordinaten für den Marker und Popup
-                    var messungLonLat = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
-                    var icon = new OpenLayers.Icon(data[0].icon, size, offset);
-                    icon = new OpenLayers.Icon("http://www.ffh.de/typo3conf/ext/ffh_traffic/Resources/Public/TrafficIcons/blitzer.png", size, offset);
-
-                    var marker = new OpenLayers.Marker(messungLonLat, icon);
-                    var popup;
-
-                    // Mousover-Events für die Marker
-                    marker.events.register('mouseover', marker, function(evt) {
-
-                        // Popup bauen
-                        var popupHTML = "<div>" +
-                            "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
-                            "Datum: " + messung.Datum + "<br/>" +
-                            "Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
-                            "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
-                            "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
-                            "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
-                            "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
-                            "</div>";
-
-                        popup = new OpenLayers.Popup.FramedCloud("Popup",
-                            messungLonLat,
-                            new OpenLayers.Size(200, 200),
-                            popupHTML,
-                            null,
-                            false);
-
-                        map.addPopup(popup);
-
-                    });
-                    marker.events.register('mouseout', marker, function(evt) {
-                        popup.hide();
-                    });
-
-                    // Marker für die Musikschule setzen
-                    layerRadar.addMarker(marker);
-
-                } else {
-                    // Nominatim-Suche war erfolglos
-                    console.log("FEHLER: " + messung.Messplatz + "(" + messung.Datum + ") konnte nicht gefunden werden.");
-                }
+                zeile++;
             });
-        }
+
+            var size = new OpenLayers.Size(30, 30);
+            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+            // Adresssuche über Nominatim anstoßen
+            var getNominatimMarker = function(messung){
+                
+                var nominatimQuery = 'http://nominatim.openstreetmap.org/search?q=' + messung.Messplatz + '+Aachen' + '&format=json&limit=1&polygon_geojson=1';
+                
+                return $.getJSON(nominatimQuery, function(data) {
+                
+                    if (data.length == 1) {
+                        // Nominatim-Suche war erfolgreich
+                        //console.log("Nominatim Suche war erfolgreich für: " + messung.Messplatz + "(" + messung.Datum + ")");
+
+                        messung.GeoJson = data[0].geojson;
+
+                        // Koordinaten für den Marker und Popup
+                        var messungLonLat = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+                        var icon = new OpenLayers.Icon(data[0].icon, size, offset);
+                        icon = new OpenLayers.Icon("./icon/blitzer.png", size, offset);
+
+                        var marker = new OpenLayers.Marker(messungLonLat, icon);
+                        var popup;
+
+                        // Mousover-Events für die Marker
+                        marker.events.register('mouseover', marker, function(evt) {
+
+                            // Popup bauen
+                            var popupHTML = "<div>" +
+                                "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
+                                "Datum: " + messung.Datum + "<br/>" +
+                                "Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
+                                "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
+                                "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
+                                "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
+                                "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
+                                "</div>";
+
+                            popup = new OpenLayers.Popup.FramedCloud("Popup",
+                                messungLonLat,
+                                new OpenLayers.Size(200, 200),
+                                popupHTML,
+                                null,
+                                false);
+
+                            map.addPopup(popup);
+
+                        });
+                        marker.events.register('mouseout', marker, function(evt) {
+                            popup.hide();
+                        });
+
+                        // Marker für die Musikschule setzen
+                        layerRadar.addMarker(marker);
+
+                    } else {
+                        // Nominatim-Suche war erfolglos
+                        console.log("FEHLER: " + messung.Messplatz + " (" + messung.Datum + ", " + messung.Gesamtanzahl + ") konnte nicht gefunden werden.");
+                    }
+                });
+            }
+        } // for 2013
 
         console.log("Anzahl Messungen: " + messungen.length);
 
@@ -293,12 +299,36 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rohdaten<b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="./csv/2013_01.csv">Januar 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_02.csv">Februar 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_03.csv">März 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_04.csv">April 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_05.csv">Mai 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_06.csv">Juni 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_07.csv">Juli 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_08.csv">August 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_09.csv">September 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_10.csv">Oktober 2013 Datei (CVS)</a>
+                            </li>
+                            <li><a href="./csv/2013_11.csv">November 2013 Datei (CVS)</a>
+                            </li>
                             <li><a href="./csv/2013_12.csv">Dezember 2013 Datei (CVS)</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="www.aachen.de/geschwindigkeitskontrollen">www.aachen.de/geschwindigkeitskontrollen</a>
+                    </li>
                     <li><a href="http://blog.schielke.it/impressum">Impressum</a>
                     </li>
                 </ul>
@@ -322,7 +352,7 @@
                 Beschreibung
             </h2>
             <p class="lead">
-                Zu sehen ist eine Karte der Stadt Aachen mit eingezeichneten Standorten der Radarkontrollen von Dezember 2013. Es wurde ein "Blitzgefahr"-Wert aus den Rohdaten ermittelt, der die Gesamtanzahl an Messungen und die Überschreitungen der Geschwindigkeitsbegrenzung miteinbezieht. Je rötlicher eine Straßenstrecke am Messpunkt, desto höher der Anteil an Autos die zu schnell fahren. Je gelblicher, desto geringer die Anzahl der Überschreitungen. Bewegt man die Maus über eine Radarmessstelle werden Zusatzinformationen angezeigt. Die Rohdaten wurden öffentlich hinterlegt und sind über das Menü einsehbar.
+                Zu sehen ist eine Karte der Stadt Aachen mit eingezeichneten Standorten der Radarkontrollen von 2013. Es wurde ein "Blitzgefahr"-Wert aus den Rohdaten ermittelt, der die Gesamtanzahl an Messungen und die Überschreitungen der Geschwindigkeitsbegrenzung miteinbezieht. Je rötlicher eine Straßenstrecke am Messpunkt, desto höher der Anteil an Autos die zu schnell fahren. Je gelblicher, desto geringer die Anzahl der Überschreitungen. Bewegt man die Maus über eine Radarmessstelle werden Zusatzinformationen angezeigt. Die Rohdaten wurden öffentlich hinterlegt und sind über das Menü einsehbar.
             </p>
         </div>
 
@@ -332,8 +362,9 @@
             </h2>
             <p>
                 Die Kontrollen finden gleichverteilt statt.
-                <br>Die Gebiete um Forst und Aachen West herum werden kaum kontrolliert.
-                <br>Es gibt eine starke Durchmischung vom "Blitzgefahrengrad"
+                <br>Die Gebiete um Forst und Aachen West (Industriegebiete) und der Stadtkern werden kaum kontrolliert.
+                <br>Es gibt eine starke Durchmischung vom "Blitzgefahrengrad".
+                <br>Wenn Übertretungen über 20km/h stattfinden, dann eher in den Außengebieten.
             </p>
         </div>
 
@@ -342,9 +373,9 @@
                 Weitere zu verknüpfende Daten
             </h2>
             <ul>
-                <li>Schulen einzeichnen</li>
-                <li>Mehr Monats-CVS-Dateien einbinden</li>
+                <li>Schulen, Kindergärten und Spielplätze einzeichnen</li>
                 <li>Zeitslider einbauen um Monate einzeln darstellen zu können</li>
+                <li>Überlagerte (doppelte) Messpunkte zusammengefasst darstellen</li>
             </ul>
         </div>
 
