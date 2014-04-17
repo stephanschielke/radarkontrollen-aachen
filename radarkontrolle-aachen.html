@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>Musikschüleranteil in Aachen</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <meta name="author" content="Stephan Schielke">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>html, head, body { width: 100%; height: 100% }</style>
+
+    <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+    <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    <script src="http://openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+    <script type="text/javascript">
+
+//TODO Straßen farblich markieren nach Anzahl Messungen je rötlicher desto mehr Verkehr
+
+    function IO(U, V) {
+        var X = !window.XMLHttpRequest ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest;
+        X.open(V ? "PUT" : "GET", U, false);
+        X.setRequestHeader("Content-Type", "text/html");
+        X.send(V ? V : "");
+        return X.responseText;
+    }
+    
+    function isBlank(str) {
+        //console.debug("isBlank");
+        return (!str || /^\s*$/.test(str));
+    }
+
+    function isInt(n) {
+        //console.debug("isInt");
+        return typeof n === 'number' && n % 1 == 0;
+    }
+
+    // Alle 3 Zahlen vom Ende her einen Dezimal-Trennpunkt setzen
+    function zahlMitTausendSeperator(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    var lat = 50.774;
+    var lon = 6.078;
+    var zoom = 12;
+    var map;
+    var mapzindex = 1;
+    var blitzgefahrMaxValue = 2;
+    var blitzgefahrMinValue = 1;
+
+    function init() {
+
+        var layerSwitcher = new OpenLayers.Control.LayerSwitcher();
+        map = new OpenLayers.Map("map_div", {
+            controls: [
+                new OpenLayers.Control.Navigation(),
+                new OpenLayers.Control.PanZoomBar(),
+                layerSwitcher,
+                new OpenLayers.Control.MousePosition(),
+                new OpenLayers.Control.Attribution()
+            ],
+            maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34),
+            maxResolution: 156543.0399,
+            numZoomLevels: 19,
+            units: 'm',
+            projection: new OpenLayers.Projection("EPSG:900913"),
+            displayProjection: new OpenLayers.Projection("EPSG:4326")
+        });
+
+        //layerSwitcher.maximizeControl();
+        layerMapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
+        map.addLayer(layerMapnik);
+
+        var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+        map.setCenter(lonLat, zoom);
+
+
+        // Straßen Layer mit Vectoren
+
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
+        // allow testing of specific renderers via "?renderer=Canvas", etc
+        var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+        renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+        
+        // create the layer styleMap by giving the default style a context
+        var context = {
+            getColor: function(feature) {
+                var colorGreen = Math.round(255 * (((100 / (blitzgefahrMaxValue - blitzgefahrMinValue)) * (feature.attributes["blitzgefahr"] - blitzgefahrMinValue)) / 100));
+                return 'rgb(255,' + (255-colorGreen) + ',0)';
+            },
+            getSize: function(feature) {
+                return feature.attributes["type"] / map.getResolution() * .703125;
+            }
+        };
+        var template = {
+            pointRadius: "${getSize}", // using context.getSize(feature)
+            fillColor: "${getColor}", // using context.getColor(feature)
+            strokeColor: "${getColor}",
+            strokeWidth: 7,
+        };
+        var style = new OpenLayers.Style(template, {context: context});
+
+        var layerStrassen = new OpenLayers.Layer.Vector("Straßen", {
+            styleMap: new OpenLayers.StyleMap(style),
+            renderers: renderer
+        }); 
+        map.addLayer(layerStrassen);
+
+        
+        // Radarstellen Layer mit Markern
+
+        var layerRadar = new OpenLayers.Layer.Markers("Radarkontrollen");
+
+        console.log("CSV Datei lesen");
+        var csvArray = IO('./csv/2013_12.csv').split(/\n/g).map(function(row){return row.split(/\t|,/g)} )
+//        console.debug(csvArray);
+
+        var zeile = 1;
+        var datum;
+        var messungen = new Array();
+        csvArray.forEach(function(entry) {
+
+            var messung = new Object();
+
+            // Erste Zeile ist Kopfzeile und wird übersprungen
+            if (zeile != 1){
+                // console.debug((zeile-1) + ". Messung erzeugen");
+                
+                // Das vorherige Datum eintragen, falls keines angegeben wurde.
+                // Messung fand offensichtlich am selben Tag statt.
+                if (!isBlank(entry[0])) {
+                    datum = entry[0];
+                }
+                messung.Datum = datum;
+                messung.Messplatz = entry[1];
+                messung.Fahrtrichtung = entry[2];
+                messung.FahrzeugeGesamt = parseInt(entry[3]);
+                // Falls Zelle ein Bindestrich ist, mache eine 0 daraus
+                if (isInt(parseInt(entry[4]))) {
+                    messung.Bis20kmh = parseInt(entry[4]);    
+                } else {
+                    messung.Bis20kmh = 0;
+                }
+                if (isInt(parseInt(entry[5]))) {
+                    messung.Ueber20kmh = parseInt(entry[5]);    
+                } else {
+                    messung.Ueber20kmh = 0;
+                }
+                messung.GeoJson = "";
+
+                // Gefahrengrade
+                var faktorGefahrNormal = 1;
+                var faktorGefahrUnter20 = 3;
+                var faktorGefahrUeber20 = 5;
+
+                var gefahrNormal = (messung.FahrzeugeGesamt - (messung.Bis20kmh + messung.Ueber20kmh)) * faktorGefahrNormal;
+                var gefahrUnter20 = messung.Bis20kmh * faktorGefahrUnter20;
+                var gefahrUeber20 = messung.Ueber20kmh * faktorGefahrUeber20;
+
+                // Blitzgefahr = (N. Gefahr + Ü<=20 Gefahr + Ü>20 Gefahr) * (1/Anteil aller Messungen)
+                messung.Blitzgefahr = Math.round((gefahrNormal + gefahrUnter20 + gefahrUeber20) * (1/messung.FahrzeugeGesamt) * 100) / 100
+
+                messungen.push(messung);  
+            }
+            
+            zeile++;
+        });
+
+        var size = new OpenLayers.Size(30, 30);
+        var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+        // Adresssuche über Nominatim anstoßen
+        var getNominatimMarker = function(messung){
+            
+            var nominatimQuery = 'http://nominatim.openstreetmap.org/search?q=' + messung.Messplatz + '+Aachen' + '&format=json&limit=1&polygon_geojson=1';
+            
+            return $.getJSON(nominatimQuery, function(data) {
+            
+                if (data.length == 1) {
+                    // Nominatim-Suche war erfolgreich
+                    //console.log("Nominatim Suche war erfolgreich für: " + messung.Messplatz + "(" + messung.Datum + ")");
+
+                    messung.GeoJson = data[0].geojson;
+
+                    // Koordinaten für den Marker und Popup
+                    var messungLonLat = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
+                    var icon = new OpenLayers.Icon(data[0].icon, size, offset);
+                    icon = new OpenLayers.Icon("http://www.ffh.de/typo3conf/ext/ffh_traffic/Resources/Public/TrafficIcons/blitzer.png", size, offset);
+
+                    var marker = new OpenLayers.Marker(messungLonLat, icon);
+                    var popup;
+
+                    // Mousover-Events für die Marker
+                    marker.events.register('mouseover', marker, function(evt) {
+
+                        // Popup bauen
+                        var popupHTML = "<div>" +
+                            "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
+                            "Datum: " + messung.Datum + "<br/>" +
+                            "Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
+                            "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
+                            "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
+                            "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
+                            "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
+                            "</div>";
+
+                        popup = new OpenLayers.Popup.FramedCloud("Popup",
+                            messungLonLat,
+                            new OpenLayers.Size(200, 200),
+                            popupHTML,
+                            null,
+                            false);
+
+                        map.addPopup(popup);
+
+                    });
+                    marker.events.register('mouseout', marker, function(evt) {
+                        popup.hide();
+                    });
+
+                    // Marker für die Musikschule setzen
+                    layerRadar.addMarker(marker);
+
+                } else {
+                    // Nominatim-Suche war erfolglos
+                    console.log("FEHLER: " + messung.Messplatz + "(" + messung.Datum + ") konnte nicht gefunden werden.");
+                }
+            });
+        }
+
+        console.log("Anzahl Messungen: " + messungen.length);
+
+        var gefahrengrade = messungen.map(function(obj) {
+            //console.log("Blitzgefahr:" + obj.Blitzgefahr);
+            return obj.Blitzgefahr;
+        });
+        //console.log(gefahrengrade);
+
+        blitzgefahrMaxValue = Math.max.apply(null, gefahrengrade);
+        blitzgefahrMinValue = Math.min.apply(null, gefahrengrade);
+        console.debug("Max Blitzgefahr: " + blitzgefahrMaxValue);
+        console.debug("Min Blitzgefahr: " + blitzgefahrMinValue);        
+        
+        // Straßen einzeichnen
+        messungen.forEach(function(messung){
+            // Auf GeoJson-Daten warten
+            $.when( 
+                getNominatimMarker(messung)
+            ).done( function () {
+                messung.GeoJson.blitzgefahr = messung.Blitzgefahr;
+                console.log("GEOJSON: " + messung.GeoJson.blitzgefahr); 
+                var features = geojson_format.read(messung.GeoJson, "FeatureCollection");
+
+                var feature = new OpenLayers.Feature.Vector(features[0].geometry, { blitzgefahr: messung.Blitzgefahr });      
+ 
+                layerStrassen.addFeatures([feature]);
+            });
+        });
+
+        map.addLayer(layerRadar);
+
+        //map.zoomToMaxExtent();
+    }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <noscript>
+        <div>
+            <h1>Aktivieren Sie bitte Javascript um die Karte zu benutzen.</h1>
+        </div>
+    </noscript>
+
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Radardatenauswertung Aachen</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Karte</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rohdaten<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://digitales-aachen.de/index.php?topic=56.15">Dezember 2013 Datei</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://blog.schielke.it/impressum">Impressum</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="row page-header">
+            <h1>Karte</h1>
+        </div>
+
+        <div class="row">
+            <div id="map_div" style="width:100%; height:600px"></div>
+        </div>
+
+        <div class="row">
+            <h2>
+                Beschreibung
+            </h2>
+            <p class="lead">
+                Zu sehen ist eine Karte der Stadt Aachen mit eingezeichneten Standorten der Radarkontrollen von Dezember 2013. Es wurde ein "Blitzgefahr"-Wert aus den Rohdaten ermittelt, der die gesamte Messung und die Überschreitungen der Geschwindigkeitsbegrenzung miteinbezieht. Je rötlicher eine Straßenstrecke am Messpunkt, desto höher der Anteil an Autos die zu schnell fahren. Je gelblicher, desto geringer die Anzahl der Überschreitungen. Bewegt man die Maus über eine Radarmessstelle werden Zusatzinformationen angezeigt. Die Rohdaten wurden öffentlich hinterlegt und sind über das Menü einsehbar.
+            </p>
+        </div>
+
+        <div class="row">
+            <h2>
+                Beobachtungen
+            </h2>
+            <p>
+                Die Kontrollen finden gleichverteilt statt.
+                <br>Das Gebiet um Forst herum wird kaum kontrolliert.
+                <br>Es gibt eine starke Durchmischung vom "Blitzgefahrengrad"
+            </p>
+        </div>
+
+        <div class="row">
+            <h2>
+                Weitere zu verknüpfende Daten
+            </h2>
+            <ul>
+                <li>Schulen einzeichnen</li>
+                <li>Mehr Monats-CVS-Dateien einbinden</li>
+                <li>Zeitslider einbauen um Monate einzeln darstellen zu können</li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <h2>
+                Ideen, Vorschläge, Anregungen?
+            </h2>
+            Besucht unser <a href="http://digitales-aachen.de/index.php?topic=56.15" title="AK Digitales Aachen">Forum</a>.
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Ein Projekt vom <a href="http://digitales-aachen.de/" title="AK Digitales Aachen">AK Digitales Aachen</a> der <a href="http://www.piratenpartei-aachen.de/" title="Piraten Aachen">Aachener Piratenpartei</a>.</p>
+        </div>
+    </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
