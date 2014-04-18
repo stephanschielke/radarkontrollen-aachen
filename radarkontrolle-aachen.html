@@ -121,7 +121,7 @@
         var layerRadar = new OpenLayers.Layer.Markers("Radarkontrollen");
         var messungen = new Array();
 
-        for (var i=1;i<=12;i++) { 
+        for (var i=1;i<=3;i++) { 
 
             console.log("CSV Datei lesen");
             var csvArray = IO('./csv/2013_' + ("0" + i).slice(-2) + '.csv').split(/\n/g).map(function(row){return row.split(/\t|,/g)} )
@@ -142,9 +142,10 @@
                     if (!isBlank(entry[0])) {
                         datum = entry[0];
                     }
-                    messung.Datum = datum;
-                    messung.Messplatz = entry[1];
-                    messung.Fahrtrichtung = entry[2];
+                    messung.Datum = new Array();
+                    messung.Datum[0] = datum;
+                    messung.Messplatz = entry[1].trim();
+                    messung.Fahrtrichtung = entry[2].trim();
                     messung.FahrzeugeGesamt = parseInt(entry[3]);
                     // Falls Zelle ein Bindestrich ist, mache eine 0 daraus
                     if (isInt(parseInt(entry[4]))) {
@@ -204,10 +205,15 @@
                         marker.events.register('mouseover', marker, function(evt) {
 
                             // Popup bauen
+                            //var datumText = messung.Datum[0];
+                            //messung.Datum.forEach(function(d){
+                                //datumText + ", <br>" + d;
+                            //});
+
                             var popupHTML = "<div>" +
                                 "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
-                                "Datum: " + messung.Datum + "<br/>" +
-                                "Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
+                                //"Datum: " + datumText + "<br/>" + 
+                                //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
                                 "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
                                 "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
                                 "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
@@ -233,13 +239,57 @@
 
                     } else {
                         // Nominatim-Suche war erfolglos
-                        console.log("FEHLER: " + messung.Messplatz + " (" + messung.Datum + ", " + messung.Gesamtanzahl + ") konnte nicht gefunden werden.");
+                        console.log("FEHLER: " + messung.Messplatz + " (" + messung.Datum[0] + ", " + messung.Gesamtanzahl + ") konnte nicht gefunden werden.");
                     }
                 });
             }
         } // for 2013
 
         console.log("Anzahl Messungen: " + messungen.length);
+
+        messungen.sort(function (a,b) {
+            if (a.Messplatz < b.Messplatz) return -1;
+            if (a.Messplatz > b.Messplatz) return 1;
+            if (a.Datum[0] < b.Datum[0]) return -1;
+            if (a.Datum[0] > b.Datum[0]) return 1;
+            return 0;
+        });
+
+//        messungen.forEach(function(m){
+//            console.debug(m.Messplatz + "(" + m.Datum + ")");
+//        });
+
+        console.log("Überlagerte Messungen zusammenfassen");
+        messungen.forEach(function(outerMessung){
+            var found = 0;
+            var blitzgefahrSum = outerMessung.Blitzgefahr;
+
+            messungen.forEach(function(innerMessung){
+                if(innerMessung === outerMessung){
+                    //console.debug("EQUAL:" + outerMessung.Messplatz + "(" + outerMessung.FahrzeugeGesamt + "/" + innerMessung.FahrzeugeGesamt + ")" );
+                    found++;
+                } else if (outerMessung.Messplatz === innerMessung.Messplatz) {
+                    found++;
+
+                    //console.debug("Doppelte Messstelle gefunden: " + outerMessung.Messplatz);
+                    outerMessung.FahrzeugeGesamt += innerMessung.FahrzeugeGesamt; 
+                    outerMessung.Bis20kmh += innerMessung.Bis20kmh; 
+                    outerMessung.Ueber20kmh += innerMessung.Ueber20kmh;
+                    outerMessung.Datum.push(innerMessung.Datum);
+                    blitzgefahrSum = blitzgefahrSum + innerMessung.Blitzgefahr;
+                }                
+
+            });
+            
+            outerMessung.Blitzgefahr = blitzgefahrSum;
+
+            if(found >= 1){
+                //console.debug("Blitzgefahrsumme: " + outerMessung.Blitzgefahr + ", gefunden: " + found); 
+                outerMessung.Blitzgefahr = Math.round( outerMessung.Blitzgefahr / found * 100) / 100;
+            }
+        });
+
+
 
         var gefahrengrade = messungen.map(function(obj) {
             //console.log("Blitzgefahr:" + obj.Blitzgefahr);
