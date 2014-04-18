@@ -9,7 +9,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>html, head, body { width: 100%; height: 100% }</style>
+    <style>
+    html, head, body {
+        width: 100%;
+        height: 100%
+    }
+    </style>
 
     <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
     <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
@@ -17,7 +22,6 @@
     <script src="http://openlayers.org/api/OpenLayers.js"></script>
     <script src="http://openstreetmap.org/openlayers/OpenStreetMap.js"></script>
     <script type="text/javascript">
-
     function IO(U, V) {
         var X = !window.XMLHttpRequest ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest;
         X.open(V ? "PUT" : "GET", U, false);
@@ -25,7 +29,7 @@
         X.send(V ? V : "");
         return X.responseText;
     }
-    
+
     function isBlank(str) {
         //console.debug("isBlank");
         return (!str || /^\s*$/.test(str));
@@ -37,6 +41,7 @@
     }
 
     // Alle 3 Zahlen vom Ende her einen Dezimal-Trennpunkt setzen
+
     function zahlMitTausendSeperator(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -84,18 +89,18 @@
         // Straßen Layer mit Vectoren
 
         var geojson_format = new OpenLayers.Format.GeoJSON({
-                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-                'externalProjection': new OpenLayers.Projection("EPSG:4326")
-            });
+            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+        });
         // allow testing of specific renderers via "?renderer=Canvas", etc
         var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
         renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-        
+
         // create the layer styleMap by giving the default style a context
         var context = {
             getColor: function(feature) {
                 var colorGreen = Math.round(255 * (((100 / (blitzgefahrMaxValue - blitzgefahrMinValue)) * (feature.attributes["blitzgefahr"] - blitzgefahrMinValue)) / 100));
-                return 'rgb(255,' + (255-colorGreen) + ',0)';
+                return 'rgb(255,' + (255 - colorGreen) + ',0)';
             },
             getSize: function(feature) {
                 return feature.attributes["type"] / map.getResolution() * .703125;
@@ -107,25 +112,29 @@
             strokeColor: "${getColor}",
             strokeWidth: 7,
         };
-        var style = new OpenLayers.Style(template, {context: context});
+        var style = new OpenLayers.Style(template, {
+            context: context
+        });
 
         var layerStrassen = new OpenLayers.Layer.Vector("Straßen", {
             styleMap: new OpenLayers.StyleMap(style),
             renderers: renderer
-        }); 
+        });
         map.addLayer(layerStrassen);
 
-        
+
         // Radarstellen Layer mit Markern
 
         var layerRadar = new OpenLayers.Layer.Markers("Radarkontrollen");
         var messungen = new Array();
 
-        for (var i=1;i<=3;i++) { 
+        for (var i = 1; i <= 6; i++) {
 
             console.log("CSV Datei lesen");
-            var csvArray = IO('./csv/2013_' + ("0" + i).slice(-2) + '.csv').split(/\n/g).map(function(row){return row.split(/\t|,/g)} )
-    //        console.debug(csvArray);
+            var csvArray = IO('./csv/2013_' + ("0" + i).slice(-2) + '.csv').split(/\n/g).map(function(row) {
+                return row.split(/\t|,/g)
+            })
+            //        console.debug(csvArray);
 
             var zeile = 1;
             var datum;
@@ -134,9 +143,9 @@
                 var messung = new Object();
 
                 // Erste Zeile ist Kopfzeile und wird übersprungen
-                if (zeile != 1){
+                if (zeile != 1) {
                     // console.debug((zeile-1) + ". Messung erzeugen");
-                    
+
                     // Das vorherige Datum eintragen, falls keines angegeben wurde.
                     // Messung fand offensichtlich am selben Tag statt.
                     if (!isBlank(entry[0])) {
@@ -149,12 +158,12 @@
                     messung.FahrzeugeGesamt = parseInt(entry[3]);
                     // Falls Zelle ein Bindestrich ist, mache eine 0 daraus
                     if (isInt(parseInt(entry[4]))) {
-                        messung.Bis20kmh = parseInt(entry[4]);    
+                        messung.Bis20kmh = parseInt(entry[4]);
                     } else {
                         messung.Bis20kmh = 0;
                     }
                     if (isInt(parseInt(entry[5]))) {
-                        messung.Ueber20kmh = parseInt(entry[5]);    
+                        messung.Ueber20kmh = parseInt(entry[5]);
                     } else {
                         messung.Ueber20kmh = 0;
                     }
@@ -170,23 +179,23 @@
                     var gefahrUeber20 = messung.Ueber20kmh * faktorGefahrUeber20;
 
                     // Blitzgefahr = (N. Gefahr + Ü<=20 Gefahr + Ü>20 Gefahr) * (1/Anteil aller Messungen)
-                    messung.Blitzgefahr = Math.round((gefahrNormal + gefahrUnter20 + gefahrUeber20) * (1/messung.FahrzeugeGesamt) * 100) / 100
+                    messung.Blitzgefahr = Math.round((gefahrNormal + gefahrUnter20 + gefahrUeber20) * (1 / messung.FahrzeugeGesamt) * 100) / 100
 
-                    messungen.push(messung);  
+                    messungen.push(messung);
                 }
-                
+
                 zeile++;
             });
 
             var size = new OpenLayers.Size(30, 30);
             var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
             // Adresssuche über Nominatim anstoßen
-            var getNominatimMarker = function(messung){
-                
+            var getNominatimMarker = function(messung) {
+
                 var nominatimQuery = 'http://nominatim.openstreetmap.org/search?q=' + messung.Messplatz + '+Aachen' + '&format=json&limit=1&polygon_geojson=1';
-                
+
                 return $.getJSON(nominatimQuery, function(data) {
-                
+
                     if (data.length == 1) {
                         // Nominatim-Suche war erfolgreich
                         //console.log("Nominatim Suche war erfolgreich für: " + messung.Messplatz + "(" + messung.Datum + ")");
@@ -207,14 +216,14 @@
                             // Popup bauen
                             //var datumText = messung.Datum[0];
                             //messung.Datum.forEach(function(d){
-                                //datumText + ", <br>" + d;
+                            //datumText + ", <br>" + d;
                             //});
 
                             var popupHTML = "<div>" +
                                 "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
-                                //"Datum: " + datumText + "<br/>" + 
-                                //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
-                                "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
+                            //"Datum: " + datumText + "<br/>" + 
+                            //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
+                            "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
                                 "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
                                 "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
                                 "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
@@ -247,7 +256,7 @@
 
         console.log("Anzahl Messungen: " + messungen.length);
 
-        messungen.sort(function (a,b) {
+        messungen.sort(function(a, b) {
             if (a.Messplatz < b.Messplatz) return -1;
             if (a.Messplatz > b.Messplatz) return 1;
             if (a.Datum[0] < b.Datum[0]) return -1;
@@ -255,39 +264,47 @@
             return 0;
         });
 
-//        messungen.forEach(function(m){
-//            console.debug(m.Messplatz + "(" + m.Datum + ")");
-//        });
+        //        messungen.forEach(function(m){
+        //            console.debug(m.Messplatz + "(" + m.Datum + ")");
+        //        });
 
         console.log("Überlagerte Messungen zusammenfassen");
-        messungen.forEach(function(outerMessung){
+
+
+        for (var i = 0; i < messungen.length; i++) {
+            if (typeof messungen[i] == "undefined")
+                continue;
+            console.debug("Suche nach überlagerten Messungen für: " + messungen[i].Messplatz);
+
             var found = 0;
-            var blitzgefahrSum = outerMessung.Blitzgefahr;
+            var blitzgefahrSum = messungen[i].Blitzgefahr;
 
-            messungen.forEach(function(innerMessung){
-                if(innerMessung === outerMessung){
-                    //console.debug("EQUAL:" + outerMessung.Messplatz + "(" + outerMessung.FahrzeugeGesamt + "/" + innerMessung.FahrzeugeGesamt + ")" );
+            for (var j = messungen.length; j > -1; j--) {
+                if (typeof messungen[j] == "undefined")
+                    continue;
+                if (messungen[j] === messungen[i]) {
+                    //console.debug("Gleiche Messstelle gefunden: " + messungen[i].Messplatz + "(" + messungen[i].FahrzeugeGesamt + "/" + messungen[j].FahrzeugeGesamt + ")");
                     found++;
-                } else if (outerMessung.Messplatz === innerMessung.Messplatz) {
+                } else if (messungen[i].Messplatz === messungen[j].Messplatz) {
                     found++;
 
-                    //console.debug("Doppelte Messstelle gefunden: " + outerMessung.Messplatz);
-                    outerMessung.FahrzeugeGesamt += innerMessung.FahrzeugeGesamt; 
-                    outerMessung.Bis20kmh += innerMessung.Bis20kmh; 
-                    outerMessung.Ueber20kmh += innerMessung.Ueber20kmh;
-                    outerMessung.Datum.push(innerMessung.Datum);
-                    blitzgefahrSum = blitzgefahrSum + innerMessung.Blitzgefahr;
-                }                
+                    console.debug("Doppelte Messstelle gefunden: " + messungen[i].Messplatz);
+                    messungen[i].FahrzeugeGesamt += messungen[j].FahrzeugeGesamt;
+                    messungen[i].Bis20kmh += messungen[j].Bis20kmh;
+                    messungen[i].Ueber20kmh += messungen[j].Ueber20kmh;
+                    messungen[i].Datum.push(messungen[j].Datum);
+                    blitzgefahrSum = blitzgefahrSum + messungen[j].Blitzgefahr;
+                    messungen.splice(j, 1);
+                }
+            };
 
-            });
-            
-            outerMessung.Blitzgefahr = blitzgefahrSum;
+            messungen[i].Blitzgefahr = blitzgefahrSum;
 
-            if(found >= 1){
-                //console.debug("Blitzgefahrsumme: " + outerMessung.Blitzgefahr + ", gefunden: " + found); 
-                outerMessung.Blitzgefahr = Math.round( outerMessung.Blitzgefahr / found * 100) / 100;
+            if (found >= 1) {
+                //console.debug("Blitzgefahrsumme: " + messungen[i].Blitzgefahr + ", gefunden: " + found); 
+                messungen[i].Blitzgefahr = Math.round(messungen[i].Blitzgefahr / found * 100) / 100;
             }
-        });
+        };
 
 
 
@@ -300,16 +317,18 @@
         blitzgefahrMaxValue = Math.max.apply(null, gefahrengrade);
         blitzgefahrMinValue = Math.min.apply(null, gefahrengrade);
         console.debug("Max Blitzgefahr: " + blitzgefahrMaxValue);
-        console.debug("Min Blitzgefahr: " + blitzgefahrMinValue);        
-        
+        console.debug("Min Blitzgefahr: " + blitzgefahrMinValue);
+
         // Straßen einzeichnen
-        messungen.forEach(function(messung){
+        messungen.forEach(function(messung) {
             // Auf GeoJson-Daten warten
-            $.when( 
+            $.when(
                 getNominatimMarker(messung)
-            ).done( function () {
+            ).done(function() {
                 var features = geojson_format.read(messung.GeoJson, "FeatureCollection");
-                var feature = new OpenLayers.Feature.Vector(features[0].geometry, { blitzgefahr: messung.Blitzgefahr });      
+                var feature = new OpenLayers.Feature.Vector(features[0].geometry, {
+                    blitzgefahr: messung.Blitzgefahr
+                });
                 layerStrassen.addFeatures([feature]);
             });
         });
@@ -318,7 +337,6 @@
 
         //map.zoomToMaxExtent();
     }
-
     </script>
 </head>
 
