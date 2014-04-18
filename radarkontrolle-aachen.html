@@ -128,7 +128,7 @@
         var layerRadar = new OpenLayers.Layer.Markers("Radarkontrollen");
         var messungen = new Array();
 
-        for (var i = 1; i <= 6; i++) {
+        for (var i = 1; i <= 12; i++) {
 
             console.log("CSV Datei lesen");
             var csvArray = IO('./csv/2013_' + ("0" + i).slice(-2) + '.csv').split(/\n/g).map(function(row) {
@@ -256,6 +256,7 @@
 
         console.log("Anzahl Messungen: " + messungen.length);
 
+        // Sortierung nach 1. Messplatz und 2. nach Datum
         messungen.sort(function(a, b) {
             if (a.Messplatz < b.Messplatz) return -1;
             if (a.Messplatz > b.Messplatz) return 1;
@@ -270,18 +271,21 @@
 
         console.log("Überlagerte Messungen zusammenfassen");
 
-
+        // Schleife von unten nach oben
         for (var i = 0; i < messungen.length; i++) {
+            console.debug("Suche nach überlagerten Messungen für: " + messungen[i].Messplatz);
+
             if (typeof messungen[i] == "undefined")
                 continue;
-            console.debug("Suche nach überlagerten Messungen für: " + messungen[i].Messplatz);
 
             var found = 0;
             var blitzgefahrSum = messungen[i].Blitzgefahr;
 
+            // Schleife von oben nach unten wegen splice
             for (var j = messungen.length; j > -1; j--) {
                 if (typeof messungen[j] == "undefined")
                     continue;
+
                 if (messungen[j] === messungen[i]) {
                     //console.debug("Gleiche Messstelle gefunden: " + messungen[i].Messplatz + "(" + messungen[i].FahrzeugeGesamt + "/" + messungen[j].FahrzeugeGesamt + ")");
                     found++;
@@ -289,11 +293,15 @@
                     found++;
 
                     console.debug("Doppelte Messstelle gefunden: " + messungen[i].Messplatz);
+                    // Werte aufsummieren
                     messungen[i].FahrzeugeGesamt += messungen[j].FahrzeugeGesamt;
                     messungen[i].Bis20kmh += messungen[j].Bis20kmh;
                     messungen[i].Ueber20kmh += messungen[j].Ueber20kmh;
                     messungen[i].Datum.push(messungen[j].Datum);
                     blitzgefahrSum = blitzgefahrSum + messungen[j].Blitzgefahr;
+                    
+                    // Abtrennen der doppelten Messstelle, 
+                    // sodass nur die outer Messstelle im Array bleibt.
                     messungen.splice(j, 1);
                 }
             };
@@ -307,6 +315,7 @@
         };
 
 
+        // Blitzgefahr errechnen für den Straßenfarbcode
 
         var gefahrengrade = messungen.map(function(obj) {
             //console.log("Blitzgefahr:" + obj.Blitzgefahr);
@@ -397,7 +406,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="www.aachen.de/geschwindigkeitskontrollen">www.aachen.de/geschwindigkeitskontrollen</a>
+                    <li><a href="http://www.aachen.de/geschwindigkeitskontrollen">www.aachen.de/geschwindigkeitskontrollen</a>
                     </li>
                     <li><a href="http://blog.schielke.it/impressum">Impressum</a>
                     </li>
@@ -444,9 +453,8 @@
             </h2>
             <ul>
                 <li>Schulen, Kindergärten und Spielplätze einzeichnen</li>
-                <li>Starenkasten einzeichnen</li>
+                <li>Starenkästen einzeichnen</li>
                 <li>Zeitslider einbauen um Monate einzeln darstellen zu können</li>
-                <li>Überlagerte (doppelte) Messpunkte zusammengefasst darstellen</li>
             </ul>
         </div>
 
