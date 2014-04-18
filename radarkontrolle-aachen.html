@@ -212,33 +212,39 @@
 
                         // Mousover-Events für die Marker
                         marker.events.register('mouseover', marker, function(evt) {
+                            
+                            if (typeof popup === 'undefined') {
+                            
+                                // Popup bauen
+                                //var datumText = messung.Datum[0];
+                                //messung.Datum.forEach(function(d){
+                                //datumText + ", <br>" + d;
+                                //});
 
-                            // Popup bauen
-                            //var datumText = messung.Datum[0];
-                            //messung.Datum.forEach(function(d){
-                            //datumText + ", <br>" + d;
-                            //});
+                                var popupHTML = "<div>" +
+                                    "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
+                                //"Datum: " + datumText + "<br/>" + 
+                                //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
+                                "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
+                                    "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
+                                    "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
+                                    "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
+                                    "</div>";
 
-                            var popupHTML = "<div>" +
-                                "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
-                            //"Datum: " + datumText + "<br/>" + 
-                            //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
-                            "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
-                                "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
-                                "Über 20 km/h: " + messung.Ueber20kmh + "<br/>" +
-                                "<strong>Blitzgefahr: " + messung.Blitzgefahr + "</strong>" +
-                                "</div>";
+                                popup = new OpenLayers.Popup.FramedCloud("Popup",
+                                    messungLonLat,
+                                    new OpenLayers.Size(200, 200),
+                                    popupHTML,
+                                    null,
+                                    false);
 
-                            popup = new OpenLayers.Popup.FramedCloud("Popup",
-                                messungLonLat,
-                                new OpenLayers.Size(200, 200),
-                                popupHTML,
-                                null,
-                                false);
-
-                            map.addPopup(popup);
+                                map.addPopup(popup);
+                            } else {
+                                popup.toggle();
+                            }
 
                         });
+
                         marker.events.register('mouseout', marker, function(evt) {
                             popup.hide();
                         });
