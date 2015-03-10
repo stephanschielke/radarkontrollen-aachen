@@ -212,9 +212,9 @@
 
                         // Mousover-Events für die Marker
                         marker.events.register('mouseover', marker, function(evt) {
-                            
+
                             if (typeof popup === 'undefined') {
-                            
+
                                 // Popup bauen
                                 //var datumText = messung.Datum[0];
                                 //messung.Datum.forEach(function(d){
@@ -223,7 +223,7 @@
 
                                 var popupHTML = "<div>" +
                                     "<strong>" + messung.Messplatz + "</strong>" + "<br/>" +
-                                //"Datum: " + datumText + "<br/>" + 
+                                //"Datum: " + datumText + "<br/>" +
                                 //"Fahrtrichtung: " + messung.Fahrtrichtung + " Aachen <br/>" +
                                 "Fahrzeuge gesamt: " + zahlMitTausendSeperator(messung.FahrzeugeGesamt) + "<br/>" +
                                     "Bis 20 km/h: " + messung.Bis20kmh + "<br/>" +
@@ -305,8 +305,8 @@
                     messungen[i].Ueber20kmh += messungen[j].Ueber20kmh;
                     messungen[i].Datum.push(messungen[j].Datum);
                     blitzgefahrSum = blitzgefahrSum + messungen[j].Blitzgefahr;
-                    
-                    // Abtrennen der doppelten Messstelle, 
+
+                    // Abtrennen der doppelten Messstelle,
                     // sodass nur die outer Messstelle im Array bleibt.
                     messungen.splice(j, 1);
                 }
@@ -315,7 +315,7 @@
             messungen[i].Blitzgefahr = blitzgefahrSum;
 
             if (found >= 1) {
-                //console.debug("Blitzgefahrsumme: " + messungen[i].Blitzgefahr + ", gefunden: " + found); 
+                //console.debug("Blitzgefahrsumme: " + messungen[i].Blitzgefahr + ", gefunden: " + found);
                 messungen[i].Blitzgefahr = Math.round(messungen[i].Blitzgefahr / found * 100) / 100;
             }
         };
@@ -475,6 +475,24 @@
             <p class="text-muted">Ein Projekt vom <a href="http://digitales-aachen.de/" title="AK Digitales Aachen">AK Digitales Aachen</a> der <a href="http://www.piratenpartei-aachen.de/" title="Piraten Aachen">Aachener Piratenpartei</a>.</p>
         </div>
     </div>
+    <!-- Start of StatCounter Code for Default Guide -->
+    <script type="text/javascript">
+    var sc_project=10334561;
+    var sc_invisible=1;
+    var sc_security="08119eff";
+    var scJsHost = (("https:" == document.location.protocol) ?
+    "https://secure." : "http://www.");
+    document.write("<sc"+"ript type='text/javascript' src='" +
+    scJsHost+
+    "statcounter.com/counter/counter.js'></"+"script>");
+    </script>
+    <noscript><div class="statcounter"><a title="website
+    statistics" href="http://statcounter.com/"
+    target="_blank"><img class="statcounter"
+    src="http://c.statcounter.com/10334561/0/08119eff/1/"
+    alt="website statistics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+    <!-- End of StatCounter Code for Default Guide -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
